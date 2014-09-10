@@ -91,7 +91,7 @@ int tile_file(char *src_file_path, const char *tile_file_path_format, const uint
     png_bytep tile_row_p[tile_size];
     png_bytep src_data = calloc(src_rowsize, tile_size);
     if(src_data == NULL) {
-        return perr("Could not allocate memory for incrementaly reading \"%s\".", src_file_path);
+        return perr("Could not allocate memory for incrementaly reading \"%s\".\n", src_file_path);
     }
     // libpng needs a pointer to every row of the image but if we only read
     // tile_size many at a time, it won't notice that they all point to the same blob...
