@@ -41,12 +41,18 @@ int main(int argc, char *argv[]) {
         return perr("Could not create directory \"%s\"\n", dst_dir_path);
     }
 
-    char *tile_file_path_format = salloc(strlen(dst_dir_path)+1+strlen(TILE_FILENAME_FORMAT)+1);
-    strcpy(tile_file_path_format, dst_dir_path);
-    // append / if it is not the last char in tile_file_path_format
-    if(tile_file_path_format[strlen(tile_file_path_format)-1] != '/')
-    		strcat(tile_file_path_format, "/");
-    strcat(tile_file_path_format, TILE_FILENAME_FORMAT);
+    tile_file_path_format_struct tile_file_path_format;
+
+    tile_file_path_format.format_string = salloc(strlen(dst_dir_path)+1+strlen(TILE_FILENAME_FORMAT)+1);
+    strcpy(tile_file_path_format.format_string, dst_dir_path);
+    // append / if it is not the last char in tile_file_path_format.format_string
+    if(tile_file_path_format.format_string[strlen(tile_file_path_format.format_string)-1] != '/')
+    		strcat(tile_file_path_format.format_string, "/");
+    strcat(tile_file_path_format.format_string, TILE_FILENAME_FORMAT);
+
+    tile_file_path_format.buffer_size     = strlen(tile_file_path_format.format_string)+32;
+    tile_file_path_format.index_begin     = 0;
+    tile_file_path_format.index_increment = 2;
 
 	return tile_file(src_path, tile_file_path_format, TILE_SIZE);
 }

@@ -6,9 +6,7 @@
 #include "tile.h"
 #include "util.h"
 
-int tile_file(char *src_file_path, const char *tile_file_path_format, const uint tile_size) {
-    const uint TILE_FILE_PATH_BUFFER_SIZE = strlen(tile_file_path_format)+32;
-
+int tile_file(char *src_file_path, const tile_file_path_format_struct tile_file_path_format, const uint tile_size) {
     // open the file
     FILE *src_fd = fopen(src_file_path, "rb");
     if(!src_fd) {
@@ -115,8 +113,8 @@ int tile_file(char *src_file_path, const char *tile_file_path_format, const uint
 
         // slize into tiles
         for(x = 0; x < n_tiles_x; x++) {
-            char tile_file_path[TILE_FILE_PATH_BUFFER_SIZE];
-            snprintf(tile_file_path, TILE_FILE_PATH_BUFFER_SIZE, tile_file_path_format, x, y);
+            char tile_file_path[tile_file_path_format.buffer_size];
+            format_tile_path(tile_file_path, tile_file_path_format, x, y);
 
             // fill tile row pointers with values according to the actual x-offset
             const unsigned int x_offset = src_bytes_per_px * x * tile_size;
@@ -200,4 +198,14 @@ int save_tile(
     png_write_png(ppng_dst, pinfo_dst, 0, NULL);
 
     fclose(pf_dst);
+}
+
+void format_tile_path(char *buffer, tile_file_path_format_struct conf, uint x, uint y) {
+    snprintf(
+        buffer,
+        conf.buffer_size,
+        conf.format_string,
+        x * conf.index_increment + conf.index_begin,
+        y * conf.index_increment + conf.index_begin
+    );
 }
