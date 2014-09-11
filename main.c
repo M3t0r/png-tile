@@ -15,9 +15,7 @@ int main(int argc, char *argv[]) {
     const char
         *TILE_FILENAME_FORMAT = "tile_%i_%i.png";
     const unsigned int
-        TILE_SIZE = 256, //px
-        TILE_FILENAME_INDEX_BEGIN = 0,
-        TILE_FILENAME_INCREMENT = 1;
+        TILE_SIZE = 256; //px
 
     // initialization for fancy output
     fancy_init();
@@ -52,7 +50,7 @@ int main(int argc, char *argv[]) {
 
     tile_file_path_format.buffer_size     = strlen(tile_file_path_format.format_string)+32;
     tile_file_path_format.index_begin     = 0;
-    tile_file_path_format.index_increment = 2;
+    tile_file_path_format.index_increment = 1;
 
 	return tile_file(src_path, tile_file_path_format, TILE_SIZE);
 }
