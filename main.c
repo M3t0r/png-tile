@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     const unsigned int
         TILE_SIZE = 256, //px
         TILE_FILENAME_INDEX_BEGIN = 0,
-        TILE_FILENAME_INCREMENT = 2;
+        TILE_FILENAME_INCREMENT = 1;
 
     // initialization for fancy output
     fancy_init();
