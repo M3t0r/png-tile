@@ -197,6 +197,10 @@ int save_tile(
 
     png_write_png(ppng_dst, pinfo_dst, 0, NULL);
 
+    // don't forget the cleanup part:
+    png_write_end(ppng_dst, NULL); // apparently we don't need this for correct *.png files...
+    png_destroy_write_struct(&ppng_dst, &pinfo_dst);
+
     fclose(pf_dst);
 }
 
